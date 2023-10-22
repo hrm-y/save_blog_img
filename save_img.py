@@ -8,7 +8,7 @@ from settings import member_num
 BASE_URL = "https://www.hinatazaka46.com"
 
 
-def main(member_name, selected_save_dir):
+def main(member_name, selected_save_path):
     BLOG_LIST_URL = (
         BASE_URL + "/s/official/diary/member/list?ct=" + member_num[member_name]
     )
@@ -23,7 +23,7 @@ def main(member_name, selected_save_dir):
     while next_exist:
         imgs_url_list = get_image_url(blog_url)
         last_date, No = save_file(
-            imgs_url_list, last_date, No, member_name, selected_save_dir
+            imgs_url_list, last_date, No, member_name, selected_save_path
         )
         blog_url, next_exist = get_next_blog_url(blog_url)
         """
@@ -62,10 +62,10 @@ def get_image_url(blog_url):
     return imgs_url_list
 
 
-def save_file(imgs_url_list, last_date, No, member_name, selected_save_folder):
+def save_file(imgs_url_list, last_date, No, member_name, selected_save_path):
     member_name = member_name.replace(" ", "")
 
-    dir = os.path.join(selected_save_folder, member_name)
+    dir = os.path.join(selected_save_path, member_name)
 
     # 取得したメンバー名のフォルダが未作成であればフォルダを作成
     if not os.path.exists(dir):
